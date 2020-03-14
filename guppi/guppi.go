@@ -35,7 +35,7 @@ func main() {
 
 	r := strings.NewReplacer("'", "", " ", "")
 
-	f, err := os.Open("/media/luigifcruz/HDD1/SETI/blc5_guppi_57388_HIP113357_0010.0013.raw")
+	f, err := os.Open("/media/luigifcruz/HDD1/SETI/blc6_guppi_57388_HIP113357_0010.0000.raw")
 	defer f.Close()
 	if err != nil {
         panic(err)
@@ -106,7 +106,7 @@ func main() {
 	chFiles := make(map[int64]*os.File)
 
 	for i := int64(0); i < OBSNCHAN; i++ {
-		fileName := fmt.Sprintf("VOYAGER1_C%d", i)
+		fileName := fmt.Sprintf("data/HIP113357/FILE_C%d", i)
 		chFiles[i], err = os.Create(fileName)
 		defer chFiles[i].Close()
 		if err != nil {
