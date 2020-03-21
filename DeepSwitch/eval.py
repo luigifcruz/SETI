@@ -28,7 +28,7 @@ def eval_net(net, loader, device, n_val, writer, global_step):
             a = accuracy(output, target, topk=(1,))
             acc.update(a[0], inputs.size(0))
 
-            pbar.set_postfix(**{'acc': acc.val.item()})
+            pbar.set_postfix(**{'acc': acc.avg.item()})
             pbar.update(inputs.shape[0])
 
     return loss.avg, acc.avg

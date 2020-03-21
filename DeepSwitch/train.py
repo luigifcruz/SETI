@@ -129,7 +129,7 @@ def run(model, net_size, root_dir, save_dir, input_size, batch_size, learning_ra
                 writer.add_scalar('Training Loss', loss.item(), global_step)
                 writer.add_scalar('Training Accuracy', train_acc.val, global_step)
                 
-                pbar.set_postfix(**{'acc': train_acc.avg.item(), 'loss': train_loss.avg, 'lr': get_lr(optimizer)})
+                pbar.set_postfix(**{'acc': train_acc.avg.item(), 'loss': train_loss.avg})
                 pbar.update(inputs.shape[0])
 
                 global_step += 1

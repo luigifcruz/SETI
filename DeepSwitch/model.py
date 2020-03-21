@@ -27,22 +27,26 @@ class DeepSwitch(nn.Module):
 
         self.Conv1 = conv_block(input_size[0], 32)
         self.Conv2 = conv_block(32, 64)
+        self.Conv3 = conv_block(64, 128)
+        self.Conv4 = conv_block(128, 256)
 
-        size = (input_size[1]//4) * (input_size[2]//4) * 64
+        size = (input_size[1]//16) * (input_size[2]//16) * 256
 
         self.fc = nn.Sequential(
-            nn.Linear(size, 256),
+            nn.Linear(size, 2048),
             nn.ReLU(True),
             nn.Dropout(),
-            nn.Linear(256, 256),
+            nn.Linear(2048, 2048),
             nn.ReLU(True),
             nn.Dropout(),
-            nn.Linear(256, num_classes), 
+            nn.Linear(2048, num_classes), 
             nn.LogSoftmax(dim=1))
 
     def forward(self, x):
         x = self.Conv1(x)
         x = self.Conv2(x)
+        x = self.Conv3(x)
+        x = self.Conv4(x)
 
         x = torch.flatten(x, 1)
         x = self.fc(x)
