@@ -60,6 +60,9 @@ def run(model, net_size, root_dir, save_dir, input_size, batch_size, learning_ra
     
     # Load Datasets
     transform = transforms.Compose([
+        transforms.RandomHorizontalFlip(),
+        transforms.RandomVerticalFlip(),
+        transforms.RandomRotation(5),
         transforms.Resize(input_size[1:]),
         transforms.ToTensor(),
     ])
