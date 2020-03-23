@@ -48,7 +48,7 @@ class DeepSwitch(nn.Module):
 
         self.Conv1 = dual_conv_block(input_size[0], 8)
         self.Conv2 = dual_conv_block(8, 16)
-        self.Conv3 = conv_block(16, 32)
+        self.Conv3 = dual_conv_block(16, 32)
         self.Conv4 = conv_block(32, 64)
         self.Conv5 = conv_block(64, 128)
         self.Conv6 = conv_block(128, 256)

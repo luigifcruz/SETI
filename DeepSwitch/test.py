@@ -95,7 +95,7 @@ def run(model, root_dir, save_dir, input_size, batch_size, device, num_classes, 
             pbar.update(inputs.shape[0])
 
     df_cm = pd.DataFrame(matrix, index=labels, columns=labels)
-    plt.figure(figsize=(20, 16))
+    plt.figure(figsize=(15, 12))
     sn.heatmap(df_cm, annot=True, cmap="OrRd")
     plt.title('Confusion Matrix\nDataset: {} | Accuracy: {:.2f}'.format(set_type, acc.avg.item()*100))
     plt.xlabel('Predicted')
