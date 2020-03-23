@@ -49,14 +49,3 @@ def accuracy(output, target, topk=(1,)):
             correct_k = correct[:k].view(-1).float().sum(0, keepdim=True)
             res.append(correct_k.mul_(100.0 / batch_size))
         return res
-
-
-def accuracy2(output, target):
-    '''
-        Computes the precision@k for the specified values of k
-    '''
-
-    _, pred = torch.max(output, dim=1)
-    correct_tensor = pred.eq(target.data.view_as(pred))
-    print(pred, target)
-    return torch.mean(correct_tensor.type(torch.FloatTensor))
