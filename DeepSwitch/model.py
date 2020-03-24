@@ -56,13 +56,13 @@ class DeepSwitch(nn.Module):
         size = (input_size[1]//64) * (input_size[2]//64) * 256
 
         self.fc = nn.Sequential(
-            nn.Linear(size, 2048),
+            nn.Linear(size, 1024),
             nn.ReLU(True),
             nn.Dropout(),
-            nn.Linear(2048, 2048),
+            nn.Linear(1024, 1024),
             nn.ReLU(True),
             nn.Dropout(),
-            nn.Linear(2048, num_classes), 
+            nn.Linear(1024, num_classes), 
             nn.LogSoftmax(dim=1))
 
     def forward(self, x):
