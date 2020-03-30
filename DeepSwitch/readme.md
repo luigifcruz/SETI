@@ -1,8 +1,7 @@
 # DeepSwitch
 
-Notion Page: https://www.notion.so/luigifcruz/DeepSwitch-70c38e69dd324dcd987fcd01648e11ba
-Kaggle URL: https://www.kaggle.com/tentotheminus9/seti-data
-Repository URL: https://github.com/luigifreitas/seti/tree/master/DeepSwitch
+Notion Page: https://www.notion.so/luigifcruz/DeepSwitch-70c38e69dd324dcd987fcd01648e11ba<br>
+Kaggle URL: https://www.kaggle.com/tentotheminus9/seti-data<br>
 
 # Introduction
 
