@@ -10,7 +10,9 @@ from torch.utils.data import DataLoader, random_split
 from torch.utils.tensorboard import SummaryWriter
 from torchvision import transforms, utils
 import torchvision.datasets as datasets
+import torchvision.models as models
 
+from model import DeepSwitch
 from eval import eval_net
 from utils import get_lr, safe_div, AverageMeter, accuracy
 
@@ -30,8 +32,25 @@ def setup_logger(log_file, level=logging.INFO):
 
     return logger
 
-def run(model, net_size, root_dir, save_dir, input_size, batch_size, learning_rate, min_lr, epochs, device, patience, num_classes):
-    model = model(input_size, num_classes)
+def run(root_dir, input_size, save_dir, cfg, bn, batch_size, learning_rate, min_lr, epochs, device, patience, num_classes):
+    # VGG-16
+    #model = models.vgg16(pretrained=False)
+    #model.classifier[6] = nn.Linear(4096, num_classes)
+
+    # Inception V3
+    #model = models.inception_v3(pretrained=False, aux_logits=False)
+    #model.fc = nn.Linear(2048, num_classes)
+
+    # SqueezeNet
+    #model = models.squeezenet1_0(pretrained=False)
+    #model.classifier[1] = nn.Conv2d(512, num_classes, kernel_size=(1,1), stride=(1,1))
+
+    # Resenet18
+    #model = models.resnet18(pretrained=False)
+    #model.fc = nn.Linear(512, num_classes)
+
+    model = DeepSwitch(cfg, num_classes, batch_norm=bn)
+    print(model)
 
     # Generate Necessary Files
     if os.path.isdir(save_dir):
@@ -39,7 +58,7 @@ def run(model, net_size, root_dir, save_dir, input_size, batch_size, learning_ra
         if res == '2':
             shutil.rmtree(save_dir)
         if res == '3':
-            exit(0)
+            return
 
     if not os.path.isdir(save_dir):
         os.mkdir(save_dir)
@@ -62,8 +81,8 @@ def run(model, net_size, root_dir, save_dir, input_size, batch_size, learning_ra
     transform = transforms.Compose([
         transforms.RandomHorizontalFlip(),
         transforms.RandomVerticalFlip(),
-        transforms.RandomRotation(5),
-        transforms.Resize(input_size[1:]),
+        transforms.RandomRotation(10),
+        transforms.Resize(input_size),
         transforms.ToTensor(),
     ])
                                         
@@ -100,11 +119,10 @@ def run(model, net_size, root_dir, save_dir, input_size, batch_size, learning_ra
     Save Directory:  {save_dir}
     Model Directory: {root_dir}
     Device:          {device.type}
-    Network Size:    {net_size}
     '''
     logger.info(info)
     print(info)
-    
+
     # Run the Model
     for epoch in range(epoch, epochs):
         model.train()

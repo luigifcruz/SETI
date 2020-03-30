@@ -2,6 +2,7 @@ import os
 import shutil
 from tqdm import tqdm
 import numpy as np
+import time
 import re
 from sklearn.metrics import confusion_matrix, accuracy_score
 import seaborn as sn
@@ -14,13 +15,30 @@ from torch.utils.data import DataLoader, random_split
 from torch.utils.tensorboard import SummaryWriter
 from torchvision import transforms, utils
 import torchvision.datasets as datasets
+import torchvision.models as models
 
 from eval import eval_net
 from utils import get_lr, safe_div, AverageMeter
 from model import DeepSwitch
 
-def run(model, root_dir, save_dir, input_size, batch_size, device, num_classes, set_type):
-    model = model(input_size, num_classes)
+def run(cfg, bn, root_dir, save_dir, input_size, batch_size, device, num_classes, set_type):
+    # VGG-16
+    #model = models.vgg16(pretrained=False)
+    #model.classifier[6] = nn.Linear(4096, num_classes)
+
+    # Inception V3
+    #model = models.inception_v3(pretrained=False, aux_logits=False)
+    #model.fc = nn.Linear(2048, num_classes)
+
+    # SqueezeNet
+    #model = models.squeezenet1_0(pretrained=False)
+    #model.classifier[1] = nn.Conv2d(512, num_classes, kernel_size=(1,1), stride=(1,1))
+
+    # Resenet18
+    model = models.resnet18(pretrained=False)
+    model.fc = nn.Linear(512, num_classes)
+
+    #model = DeepSwitch(cfg, num_classes, batch_norm=bn)
 
     # Load Existing Models
     cks = [int(f.split('_')[-1].split('.')[0]) for f in os.listdir(save_dir)
@@ -38,13 +56,13 @@ def run(model, root_dir, save_dir, input_size, batch_size, device, num_classes, 
 
     # Load Datasets
     transform = transforms.Compose([
-        transforms.Resize(input_size[1:]),
+        transforms.Resize(input_size),
         transforms.ToTensor(),
     ])
 
     #Load our dataset
     test_set = datasets.ImageFolder(os.path.join(root_dir, set_type), transform=transform)
-    test_loader = DataLoader(test_set, batch_size=batch_size, shuffle=False, num_workers=4, pin_memory=True)
+    test_loader = DataLoader(test_set, batch_size=batch_size, shuffle=False, num_workers=8, pin_memory=True)
 
     labels = list(test_set.class_to_idx.keys())
     values = list(test_set.class_to_idx.values())
@@ -54,7 +72,7 @@ def run(model, root_dir, save_dir, input_size, batch_size, device, num_classes, 
     model.eval()
 
     # Logging Settings
-    info = f'''
+    print(f'''
     Starting training:
     Batch Size:      {batch_size}
     N. of Classes:   {num_classes}
@@ -64,17 +82,19 @@ def run(model, root_dir, save_dir, input_size, batch_size, device, num_classes, 
     Test Size:       {len(test_set)}
     Model Directory: {root_dir}
     Device:          {device.type}
-    '''
-    print(info)
+    ''')
     
     # Run the Model
     acc = AverageMeter()
+    speed = AverageMeter()
     matrix = np.zeros(shape=(len(values), len(values)))
 
+    
     with tqdm(total=len(test_set), desc='Testing', unit='img', leave=False) as pbar:
         for batch in test_loader:
+            st = time.time()
             inputs, target = batch
-
+            
             inputs = inputs.to(device=device)
             target = target.to(device=device)
 
@@ -93,6 +113,11 @@ def run(model, root_dir, save_dir, input_size, batch_size, device, num_classes, 
 
             pbar.set_postfix(**{'acc': acc.avg.item()})
             pbar.update(inputs.shape[0])
+            et = time.time()
+
+            speed.update(batch_size/(et-st))
+
+    print(speed.avg)
 
     df_cm = pd.DataFrame(matrix, index=labels, columns=labels)
     plt.figure(figsize=(15, 12))
@@ -107,11 +132,20 @@ def run(model, root_dir, save_dir, input_size, batch_size, device, num_classes, 
 
 if __name__ == "__main__":
     root_dir = '/media/luigifcruz/HDD1/SETI/fft_signal'
-    save_dir = 'runs/v31'
     set_type = 'valid'
-    input_size = (3, 384//2, 512//2)
     num_classes = 7
-    batch_size = 8
+    batch_size = 64
+    bn = True
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-    run(DeepSwitch, root_dir, save_dir, input_size, batch_size, device, num_classes, set_type)
+    interations = [
+        {
+            'save_dir': 'runs/v38',
+            'size': (192, 256), 
+            'cfg': [8, 'M', 16, 16, 'M', 32, 32, 'M', 64, 64, 64, 'M', 128, 128, 128, 'M', 256, 256, 256, 'M'],
+            'bn': True,
+        }
+    ]
+
+    for data in interations:
+        run(data['cfg'], data['bn'], root_dir, data['save_dir'], data['size'], batch_size, device, num_classes, set_type)
