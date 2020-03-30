@@ -105,15 +105,13 @@ The number of convolutional layers inside each convolutional block is important.
 
 # The Final Model
 
-{ADD MODEL PICTURE}
-
-Taking into consideration everything I learned in the experimentation above I reached the final network iteration! The model is represented by the picture above. **It achieved a test accuracy of 94.4% while being able to perform inference in up to 2204 images per second.** This is one order of magnitude faster than VGG-16 or two times faster than RedNet18! The complete comparison of my network with state-of-art ImageNet networks can be found in the table below. Since this is a CPU task, the inference speeds listed bellow aren't counting the time it takes to load and preprocess the batch of samples.
+Taking into consideration everything I learned in the experimentation above I reached the final network iteration (V43). **It achieved a test accuracy of 94.4% while being able to perform inference in up to 2204 images per second.** This is one order of magnitude faster than VGG-16 or two times faster than RedNet18! The complete comparison of my network with state-of-art ImageNet networks can be found in the table below. Since this is a CPU task, the inference speeds listed bellow aren't counting the time it takes to load and preprocess the batch of samples.
 
 [How does it compare with other models?](https://www.notion.so/ea534efbaec847b4bd567604321b2390)
 
 In the confusion matrix of the final DeepSwitch model displayed below, we can observe that all classes are behaving as expected without any major bias towards a category. Just a slightly higher error rate is recognizable between Brightpixel and Noise category. Given their resemblance, the cause of this behavior is clear.
 
-{ADD CONFUSION MATRIX}
+[Confusion Matrix](https://www.notion.so/luigifcruz/DeepSwitch-70c38e69dd324dcd987fcd01648e11ba#1b92562f24ec4551a262f4b905ecd19d)
 
 As future work, I pretend to explore a few key points:
 
