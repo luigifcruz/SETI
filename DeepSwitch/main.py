@@ -17,7 +17,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 # Declare Interation Settings
 interations = [
     {
-        'save_dir': 'runs/v47',
+        'save_dir': 'runs/test',
         'size': (192, 256), 
         'cfg': [8, 'M', 16, 16, 'M', 32, 32, 'M', 64, 64, 64, 'M', 128, 128, 128, 'M', 256, 256, 256, 'M'],
         'bn': True,

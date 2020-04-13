@@ -35,10 +35,10 @@ def run(cfg, bn, root_dir, save_dir, input_size, batch_size, device, num_classes
     #model.classifier[1] = nn.Conv2d(512, num_classes, kernel_size=(1,1), stride=(1,1))
 
     # Resenet18
-    model = models.resnet18(pretrained=False)
-    model.fc = nn.Linear(512, num_classes)
+    #model = models.resnet18(pretrained=False)
+    #model.fc = nn.Linear(512, num_classes)
 
-    #model = DeepSwitch(cfg, num_classes, batch_norm=bn)
+    model = DeepSwitch(cfg, num_classes, batch_norm=bn)
 
     # Load Existing Models
     cks = [int(f.split('_')[-1].split('.')[0]) for f in os.listdir(save_dir)
@@ -56,12 +56,11 @@ def run(cfg, bn, root_dir, save_dir, input_size, batch_size, device, num_classes
 
     # Load Datasets
     transform = transforms.Compose([
-        transforms.Resize(input_size),
         transforms.ToTensor(),
     ])
 
     #Load our dataset
-    test_set = datasets.ImageFolder(os.path.join(root_dir, set_type), transform=transform)
+    test_set = datasets.DatasetFolder(os.path.join(root_dir, set_type), np.load, extensions=('npy'), transform=transform)
     test_loader = DataLoader(test_set, batch_size=batch_size, shuffle=False, num_workers=8, pin_memory=True)
 
     labels = list(test_set.class_to_idx.keys())
@@ -140,8 +139,8 @@ if __name__ == "__main__":
 
     interations = [
         {
-            'save_dir': 'runs/v38',
-            'size': (192, 256), 
+            'save_dir': 'runs/test',
+            'size': (256, 192), 
             'cfg': [8, 'M', 16, 16, 'M', 32, 32, 'M', 64, 64, 64, 'M', 128, 128, 128, 'M', 256, 256, 256, 'M'],
             'bn': True,
         }

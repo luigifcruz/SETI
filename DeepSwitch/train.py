@@ -79,16 +79,16 @@ def run(root_dir, input_size, save_dir, cfg, bn, batch_size, learning_rate, min_
     
     # Load Datasets
     transform = transforms.Compose([
-        transforms.RandomHorizontalFlip(),
-        transforms.RandomVerticalFlip(),
-        transforms.RandomRotation(10),
-        transforms.Resize(input_size),
+#        transforms.RandomHorizontalFlip(),
+#        transforms.RandomVerticalFlip(),
+#        transforms.RandomRotation(10),
+#        transforms.Resize(input_size),
         transforms.ToTensor(),
     ])
                                         
     #Load our dataset
-    train_set = datasets.ImageFolder(os.path.join(root_dir, 'train'), transform=transform)
-    val_set = datasets.ImageFolder(os.path.join(root_dir, 'test'), transform=transform)
+    train_set = datasets.DatasetFolder(os.path.join(root_dir, 'train'), np.load, extensions=('npy'), transform=transform)
+    val_set = datasets.DatasetFolder(os.path.join(root_dir, 'test'), np.load, extensions=('npy'), transform=transform)
 
     train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True, num_workers=8, pin_memory=True)
     val_loader = DataLoader(val_set, batch_size=batch_size, shuffle=False, num_workers=4, pin_memory=True)
