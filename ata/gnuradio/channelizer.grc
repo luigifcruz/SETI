@@ -579,7 +579,7 @@ blocks:
     dc_offs_enb7: '""'
     dc_offs_enb8: '""'
     dc_offs_enb9: '""'
-    dev_addr: '""'
+    dev_addr: '"mgmt_addr=10.11.1.20"'
     dev_args: '""'
     gain0: '0'
     gain1: '0'
