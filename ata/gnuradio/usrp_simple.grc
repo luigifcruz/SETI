@@ -10,7 +10,7 @@ options:
     gen_linking: dynamic
     generate_options: no_gui
     hier_block_src_path: '.:'
-    id: channelizer_headless
+    id: usrp_simple
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -56,6 +56,19 @@ blocks:
     coordinate: [184, 12]
     rotation: 0
     state: enabled
+- name: blocks_message_debug_0
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [616, 264.0]
+    rotation: 0
+    state: true
 - name: blocks_null_sink_0
   id: blocks_null_sink
   parameters:
@@ -70,7 +83,26 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [320, 216.0]
+    coordinate: [336, 216.0]
+    rotation: 0
+    state: true
+- name: blocks_probe_rate_0
+  id: blocks_probe_rate
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha: '0.15'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mintime: '500.0'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [336, 252.0]
     rotation: 0
     state: true
 - name: uhd_usrp_source_0
@@ -447,7 +479,9 @@ blocks:
     state: true
 
 connections:
+- [blocks_probe_rate_0, rate, blocks_message_debug_0, print]
 - [uhd_usrp_source_0, '0', blocks_null_sink_0, '0']
+- [uhd_usrp_source_0, '0', blocks_probe_rate_0, '0']
 
 metadata:
   file_format: 1

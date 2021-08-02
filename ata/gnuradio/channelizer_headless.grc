@@ -36,7 +36,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '4'
+    value: '8'
   states:
     bus_sink: false
     bus_source: false
@@ -84,7 +84,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: 16e6
+    value: 32e6
   states:
     bus_sink: false
     bus_source: false
@@ -100,13 +100,26 @@ blocks:
     cutoff_freq: channel_fs/2
     gain: '1.0'
     samp_rate: samp_rate
-    width: 200e3
+    width: 500e3
     win: firdes.WIN_BLACKMAN
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
     coordinate: [688, 16.0]
+    rotation: 0
+    state: true
+- name: blocks_message_debug_0
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [872, 440.0]
     rotation: 0
     state: true
 - name: blocks_null_sink_0
@@ -123,7 +136,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [528, 168.0]
+    coordinate: [592, 168.0]
     rotation: 0
     state: true
 - name: blocks_null_sink_0_0
@@ -140,7 +153,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [528, 200.0]
+    coordinate: [592, 200.0]
     rotation: 0
     state: true
 - name: blocks_null_sink_0_0_0
@@ -157,7 +170,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [528, 232.0]
+    coordinate: [592, 232.0]
     rotation: 0
     state: true
 - name: blocks_null_sink_0_0_0_0
@@ -174,7 +187,94 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [528, 264.0]
+    coordinate: [592, 264.0]
+    rotation: 0
+    state: true
+- name: blocks_null_sink_0_0_0_0_0
+  id: blocks_null_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    bus_structure_sink: '[[0,],]'
+    comment: ''
+    num_inputs: '1'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [592, 296.0]
+    rotation: 0
+    state: true
+- name: blocks_null_sink_0_0_0_0_0_0
+  id: blocks_null_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    bus_structure_sink: '[[0,],]'
+    comment: ''
+    num_inputs: '1'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [592, 328.0]
+    rotation: 0
+    state: true
+- name: blocks_null_sink_0_0_0_0_0_0_0
+  id: blocks_null_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    bus_structure_sink: '[[0,],]'
+    comment: ''
+    num_inputs: '1'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [592, 392.0]
+    rotation: 0
+    state: true
+- name: blocks_null_sink_0_0_0_0_0_0_0_0
+  id: blocks_null_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    bus_structure_sink: '[[0,],]'
+    comment: ''
+    num_inputs: '1'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [592, 360.0]
+    rotation: 0
+    state: true
+- name: blocks_probe_rate_0
+  id: blocks_probe_rate
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha: '0.15'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mintime: '500.0'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [592, 428.0]
     rotation: 0
     state: true
 - name: pfb_channelizer_ccf_0
@@ -182,7 +282,7 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    atten: '100'
+    atten: '72'
     bus_conns: '[[0,],]'
     ch_map: '[]'
     comment: ''
@@ -196,7 +296,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [304, 168.0]
+    coordinate: [336, 168.0]
     rotation: 0
     state: true
 - name: uhd_usrp_source_0
@@ -568,15 +668,21 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [64, 160.0]
+    coordinate: [64, 224.0]
     rotation: 0
     state: true
 
 connections:
+- [blocks_probe_rate_0, rate, blocks_message_debug_0, print]
 - [pfb_channelizer_ccf_0, '0', blocks_null_sink_0, '0']
 - [pfb_channelizer_ccf_0, '1', blocks_null_sink_0_0, '0']
 - [pfb_channelizer_ccf_0, '2', blocks_null_sink_0_0_0, '0']
 - [pfb_channelizer_ccf_0, '3', blocks_null_sink_0_0_0_0, '0']
+- [pfb_channelizer_ccf_0, '4', blocks_null_sink_0_0_0_0_0, '0']
+- [pfb_channelizer_ccf_0, '5', blocks_null_sink_0_0_0_0_0_0, '0']
+- [pfb_channelizer_ccf_0, '6', blocks_null_sink_0_0_0_0_0_0_0_0, '0']
+- [pfb_channelizer_ccf_0, '7', blocks_null_sink_0_0_0_0_0_0_0, '0']
+- [pfb_channelizer_ccf_0, '7', blocks_probe_rate_0, '0']
 - [uhd_usrp_source_0, '0', pfb_channelizer_ccf_0, '0']
 
 metadata:

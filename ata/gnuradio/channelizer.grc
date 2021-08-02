@@ -10,7 +10,7 @@ options:
     gen_linking: dynamic
     generate_options: qt_gui
     hier_block_src_path: '.:'
-    id: ata_1hz_resolution
+    id: channelizer
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -106,7 +106,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [320, 404.0]
+    coordinate: [336, 408.0]
     rotation: 0
     state: true
 - name: pfb_channelizer_ccf_0
@@ -128,7 +128,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [320, 264.0]
+    coordinate: [336, 272.0]
     rotation: 0
     state: true
 - name: qtgui_waterfall_sink_x_0_0
@@ -189,7 +189,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [320, 164.0]
+    coordinate: [336, 172.0]
     rotation: 0
     state: true
 - name: qtgui_waterfall_sink_x_0_1_1
@@ -250,7 +250,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [608, 332.0]
+    coordinate: [624, 340.0]
     rotation: 0
     state: true
 - name: qtgui_waterfall_sink_x_0_1_1_0
@@ -311,7 +311,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [608, 428.0]
+    coordinate: [624, 436.0]
     rotation: 0
     state: true
 - name: qtgui_waterfall_sink_x_0_2
@@ -372,7 +372,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [608, 140.0]
+    coordinate: [624, 148.0]
     rotation: 0
     state: true
 - name: qtgui_waterfall_sink_x_0_2_0
@@ -433,7 +433,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [608, 236.0]
+    coordinate: [624, 244.0]
     rotation: 0
     state: true
 - name: uhd_usrp_source_0
