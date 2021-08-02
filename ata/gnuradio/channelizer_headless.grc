@@ -8,7 +8,7 @@ options:
     description: ''
     gen_cmake: 'On'
     gen_linking: dynamic
-    generate_options: qt_gui
+    generate_options: no_gui
     hier_block_src_path: '.:'
     id: channelizer_headless
     max_nouts: '0'
@@ -106,7 +106,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [320, 404.0]
+    coordinate: [688, 16.0]
     rotation: 0
     state: true
 - name: blocks_null_sink_0
@@ -123,7 +123,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [544, 264.0]
+    coordinate: [528, 168.0]
     rotation: 0
     state: true
 - name: blocks_null_sink_0_0
@@ -140,7 +140,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [544, 296.0]
+    coordinate: [528, 200.0]
     rotation: 0
     state: true
 - name: blocks_null_sink_0_0_0
@@ -157,7 +157,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [544, 328.0]
+    coordinate: [528, 232.0]
     rotation: 0
     state: true
 - name: blocks_null_sink_0_0_0_0
@@ -174,7 +174,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [544, 360.0]
+    coordinate: [528, 264.0]
     rotation: 0
     state: true
 - name: pfb_channelizer_ccf_0
@@ -196,68 +196,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [320, 264.0]
-    rotation: 0
-    state: true
-- name: qtgui_waterfall_sink_x_0_0
-  id: qtgui_waterfall_sink_x
-  parameters:
-    affinity: ''
-    alias: ''
-    alpha1: '1.0'
-    alpha10: '1.0'
-    alpha2: '1.0'
-    alpha3: '1.0'
-    alpha4: '1.0'
-    alpha5: '1.0'
-    alpha6: '1.0'
-    alpha7: '1.0'
-    alpha8: '1.0'
-    alpha9: '1.0'
-    axislabels: 'True'
-    bw: samp_rate
-    color1: '0'
-    color10: '0'
-    color2: '0'
-    color3: '0'
-    color4: '0'
-    color5: '0'
-    color6: '0'
-    color7: '0'
-    color8: '0'
-    color9: '0'
-    comment: ''
-    fc: '0'
-    fftsize: '1024'
-    freqhalf: 'True'
-    grid: 'True'
-    gui_hint: ''
-    int_max: '10'
-    int_min: '-140'
-    label1: ''
-    label10: ''
-    label2: ''
-    label3: ''
-    label4: ''
-    label5: ''
-    label6: ''
-    label7: ''
-    label8: ''
-    label9: ''
-    legend: 'True'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    name: Input
-    nconnections: '1'
-    showports: 'False'
-    type: complex
-    update_time: '0.10'
-    wintype: firdes.WIN_BLACKMAN
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [320, 164.0]
+    coordinate: [304, 168.0]
     rotation: 0
     state: true
 - name: uhd_usrp_source_0
@@ -629,7 +568,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [64, 264.0]
+    coordinate: [64, 160.0]
     rotation: 0
     state: true
 
@@ -639,7 +578,6 @@ connections:
 - [pfb_channelizer_ccf_0, '2', blocks_null_sink_0_0_0, '0']
 - [pfb_channelizer_ccf_0, '3', blocks_null_sink_0_0_0_0, '0']
 - [uhd_usrp_source_0, '0', pfb_channelizer_ccf_0, '0']
-- [uhd_usrp_source_0, '0', qtgui_waterfall_sink_x_0_0, '0']
 
 metadata:
   file_format: 1
